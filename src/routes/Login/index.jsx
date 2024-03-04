@@ -1,9 +1,7 @@
-import LoginChild from "../../components/Login/Login_child"
+import SignUp from "../../components/Login/Register_child";
 
 const Login = () => {
-    return (
-        <LoginChild/>
-    )
-}
+  return <SignUp />;
+};
 
-export default Login
+export default Login;

@@ -1,0 +1,59 @@
+@use "../../../App.scss";
+
+.register-container {
+  display: flex;
+}
+.logo-container {
+  display: flex;
+  width: 40%;
+  border: 1px solid;
+  border-color: #a580ff;
+  height: 100vh;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  label {
+    font-size: 40px;
+    align-self: center;
+    font-family: Roboto;
+  }
+}
+
+.old-account-holder {
+  display: flex;
+  width: 100%;
+  height: 20%;
+  justify-content: flex-end;
+  button {
+    border: 1px solid;
+    border-radius: 50px;
+    padding: 14px 38px 14px 38px;
+    height: 10px;
+  }
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 80px;
+
+  button {
+    border: 0.5px solid;
+    border-radius: 50px;
+    padding: 14px 38px;
+  }
+  #email {
+    background-image: url("/src/assets/svgs/email.svg");
+    background-repeat: no-repeat;
+  }
+
+  .sign-in {
+    display: flex;
+    flex-direction: column;
+  }
+}
