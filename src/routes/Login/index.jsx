@@ -1,3 +1,4 @@
+
 import LoginChild from "../../components/Login/Login_child"
 import './styles.scss'
 
@@ -24,4 +25,5 @@ const Login = () => {
     )
 }
 
-export default Login
+
+export default Login;
