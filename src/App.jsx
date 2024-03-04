@@ -1,14 +1,12 @@
-
-
 import './App.scss'
-import LoginChild from './components/Login/Login_child'
+import Router from './routes'
 
 function App() {
 
 
   return (
     <>
-    <LoginChild/>
+    <Router/>
     </>
   )
 }
