@@ -1,13 +1,13 @@
-import LoginChild from "../../components/Login/Login_child"
+import LoginChild from "../../components/Login/Login_child";
 // import ConfirmationChild from "../../components/Login/Confirmation_child"
 
 const Login = () => {
-    return (
-        <>
-        <LoginChild/>
-        {/* <ConfirmationChild/> */}
-        </>
-    )
-}
+  return (
+    <>
+      <LoginChild />
+      {/* <ConfirmationChild/> */}
+    </>
+  );
+};
 
-export default Login
+export default Login;
