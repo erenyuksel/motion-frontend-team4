@@ -6,6 +6,7 @@ import Posts from "./Posts";
 import NotFound from "./NotFound";
 import Layout from "./Layout";
 import ProtectedRoutes from "./ProtectedRoutes";
+import Profile from "./Profile";
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
             <Route path="/feed" element={<MotionFeed />} />
             <Route path="/posts" element={<Posts />} />
             <Route path="/find-friends" element={<FindFriends />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />

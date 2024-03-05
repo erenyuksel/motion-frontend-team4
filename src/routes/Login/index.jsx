@@ -5,10 +5,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import AxiosUser from "../../axios/UserAxios";
-import { userLogin } from "../../store/UserSlice";
+import AxiosUser, { getMyProfileData } from "../../axios/UserAxios";
+import { userLogin, userObject } from "../../store/UserSlice";
 import SignUp from "../../components/Login/Register_child";
 import Spinner from "../../components/Spinner";
+import Verification from "../../components/Login/Verification_child";
 
 const Login = () => {
   useEffect(() => {
@@ -61,6 +62,8 @@ const Login = () => {
       navigate("/feed");
       dispatch(userLogin(token));
       window.localStorage.setItem("token", token);
+      const user = await getMyProfileData(token)
+      dispatch(userObject(user.data))
     } catch (errors) {
       setError(errors.response.data.detail);
     } finally {
@@ -84,8 +87,20 @@ const Login = () => {
         last_name: lastName,
       });
 
-      setLogChild("login");
-      navigate("/login");
+      // setLogChild("login");
+      // navigate("/");
+      const res = await AxiosUser.post("/auth/token/", {
+        email: email,
+        password: password,
+      });
+      const token = res.data.access;
+      navigate("/feed");
+      dispatch(userLogin(token));
+      window.localStorage.setItem("token", token);
+      const user = await getMyProfileData(token)
+      dispatch(userObject(user.data))
+
+      
     } catch (errors) {
       setError(errors.response.data.detail);
     } finally {
@@ -168,6 +183,7 @@ const Login = () => {
               clearForm={clearForm}
             />
           ) : logChild === "confirm" ? (
+<<<<<<< HEAD
             <ConfirmationChild email={email} setLogChild={setLogChild} />
           ) : (
             <div></div>
@@ -192,6 +208,32 @@ const Login = () => {
           //   setLogReg={setLogReg}
           //   clearForm={clearForm}
           //   />
+=======
+            <ConfirmationChild 
+            email={email}
+            setLogChild={setLogChild}/>
+          ) :  logChild === "veryfication" ? (
+            <Verification email={email}
+            userName={userName}
+            code={code}
+            password={password}
+            repeatPassword={repeatPassword}
+            firstName={firstName}
+            lastName={lastName}
+            setEmail={setEmail}
+            setUserName={setUserName}
+            setCode={setCode}
+            setPassword={setPassword}
+            setRepeatPassword={setRepeatPassword}
+            setFirstName={setFirstName}
+            setLastName={setLastName}
+            submitRegisterForm={submitRegisterForm}
+            error={error}
+            setLogReg={setLogChild}
+            clearForm={clearForm}
+            />) : <div></div>
+
+>>>>>>> master
         }
       </div>
     </div>
