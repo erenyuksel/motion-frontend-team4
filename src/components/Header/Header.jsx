@@ -17,7 +17,7 @@ const Header = () => {
         <div className="header-icons-left">
           <div className="motion-logo">
             <img src={motionLogo} alt="Motion Logo" />
-            <NavLink to="/motionFeed">Motion</NavLink>
+            <NavLink to="/feed">Motion</NavLink>
           </div>
           <div className="posts-logo">
             <img src={postsLogo} alt="Posts Logo" />
@@ -26,7 +26,7 @@ const Header = () => {
 
           <div className="friends-logo">
             <img src={friendsLogo} alt="Find Friends Logo" />
-            <NavLink to="/findFriends">Find Friends</NavLink>
+            <NavLink to="/find-friends">Find Friends</NavLink>
           </div>
         </div>
         <div className="user-profile">
