@@ -1,0 +1,16 @@
+.confirmation_container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    justify-self: center;
+}
+
+h1, p {
+    text-align: center;
+}
+
+.sucsess {
+    height: 100px;
+}
