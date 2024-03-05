@@ -111,13 +111,6 @@ const Login = () => {
   // Render loading spinner when loading
 
   return (
-<<<<<<< HEAD
-    <>
-      <LoginChild />
-
-      {/* <ConfirmationChild/> */}
-    </>
-=======
     <div className="login_main_container">
       <div className="login_left_container">
         <div className="login_logo">
@@ -151,8 +144,10 @@ const Login = () => {
         </div>
       </div>
       <div className="login_right_container">
-     {isLoading ? <Spinner />: 
-          logChild === "login" ? (
+        {
+          isLoading ? (
+            <Spinner />
+          ) : logChild === "login" ? (
             <LoginChild
               email={email}
               password={password}
@@ -173,9 +168,7 @@ const Login = () => {
               clearForm={clearForm}
             />
           ) : logChild === "confirm" ? (
-            <ConfirmationChild 
-            email={email}
-            setLogChild={setLogChild}/>
+            <ConfirmationChild email={email} setLogChild={setLogChild} />
           ) : (
             <div></div>
           )
@@ -202,9 +195,6 @@ const Login = () => {
         }
       </div>
     </div>
->>>>>>> master
   );
-} 
-;
-
+};
 export default Login;
