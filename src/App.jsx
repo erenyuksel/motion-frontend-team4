@@ -1,14 +1,15 @@
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import './App.scss'
 import Router from './routes'
 import { useEffect, useState } from 'react'
-import AxiosUser from './axios/UserAxios'
-import { userLogin, userLogout } from './store/UserSlice'
+import AxiosUser, { getMyProfileData } from './axios/UserAxios'
+import { userLogin, userLogout, userObject } from './store/UserSlice'
 import Spinner from './components/Spinner'
 
 function App() {
 
   const dispatch = useDispatch()
+  const storeToken = useSelector((state) => state.user.token)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -19,6 +20,8 @@ function App() {
       try {
         await AxiosUser.post('/auth/token/verify/', { token: token })
         dispatch(userLogin(token))
+        const user = await getMyProfileData(token)
+        dispatch(userObject(user.data))
       } catch (error) {
         window.localStorage.removeItem('token')
         dispatch(userLogout())
