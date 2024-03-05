@@ -1,4 +1,4 @@
-import { useDispatch, useSelector} from 'react-redux'
+import { useDispatch} from 'react-redux'
 import './App.scss'
 import Router from './routes'
 import { useEffect, useState } from 'react'
@@ -9,7 +9,6 @@ import Spinner from './components/Spinner'
 function App() {
 
   const dispatch = useDispatch()
-  const storeToken = useSelector((state) => state.user.token)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
