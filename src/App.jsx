@@ -1,14 +1,12 @@
-import './App.scss'
-import Router from './routes'
+import "./App.scss";
+import Router from "./routes";
 
 function App() {
-
-
   return (
     <>
-    <Router/>
+      <Router />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
