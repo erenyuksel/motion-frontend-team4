@@ -1,6 +1,14 @@
+import CreateNewPost from "../../components/NewPost"
+import "./styles.scss";
+
 const MotionFeed = () => {
 
-    return( <h1>Motion</h1>
+    return( 
+    <>
+    <div className="motion-container">
+    <CreateNewPost />
+    </div>
+    </>
     )}
 
     export default MotionFeed
