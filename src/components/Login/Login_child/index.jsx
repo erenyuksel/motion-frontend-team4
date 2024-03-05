@@ -2,12 +2,12 @@ import "./styles.scss";
 import avatarIcon from "../../../assets/svgs/avatar.svg";
 import passwordIcon from "../../../assets/svgs/password.svg";
 
-const LoginChild = () => {
+const LoginChild = (props) => {
   return (
     <div className="col">
-      <div className="header">
+      <div className="login_header">
         Do not have an account?
-        <button href="#" value="Sign Up" className="button signup">
+        <button onClick={() => {props.setLogChild('register')}} value="Sign Up" className="button signup">
           Sign up
         </button>
       </div>
@@ -17,13 +17,13 @@ const LoginChild = () => {
           <form action="#" method="post">
             <div className="form-field">
               <img src={avatarIcon} alt="Avatar Icon" />
-              <input type="text" placeholder="Username" />
+              <input onChange={(e) => {props.setEmail(e.target.value)}} value={props.email} required type="text" placeholder="Email" />
             </div>
             <div className="form-field">
               <img src={passwordIcon} alt="Password Icon" />
-              <input type="password" placeholder="Password" />
+              <input onChange={(e) => {props.setPassword(e.target.value)}} value={props.password} required type="password" placeholder="Password" />
             </div>
-            <input type="submit" value="Sign In" className="button submit" />
+            <button onClick={props.submitLoginForm} className="button submit">Sign In</button>
           </form>
         </div>
       </div>
