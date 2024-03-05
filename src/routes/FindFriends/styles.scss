@@ -1,0 +1,11 @@
+@use "../../App.scss";
+@use "../../sass/variables";
+
+.friends-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 20px;
+  padding: 15px 25px 60px 25px;
+}
