@@ -159,8 +159,10 @@ const Login = () => {
         </div>
       </div>
       <div className="login_right_container">
-     {isLoading ? <Spinner />: 
-          logChild === "login" ? (
+        {
+          isLoading ? (
+            <Spinner />
+          ) : logChild === "login" ? (
             <LoginChild
               email={email}
               password={password}
@@ -181,6 +183,32 @@ const Login = () => {
               clearForm={clearForm}
             />
           ) : logChild === "confirm" ? (
+<<<<<<< HEAD
+            <ConfirmationChild email={email} setLogChild={setLogChild} />
+          ) : (
+            <div></div>
+          )
+          // case 'veryfication':
+          //     return <VeryficationChild email={email}
+          //   userName={userName}
+          //   code={code}
+          //   password={password}
+          //   repeatPassword={repeatPassword}
+          //   firstName={firstName}
+          //   lastName={lastName}
+          //   setEmail={setEmail}
+          //   setUserName={setUserName}
+          //   setCode={setCode}
+          //   setPassword={setPassword}
+          //   setRepeatPassword={setRepeatPassword}
+          //   setFirstName={setFirstName}
+          //   setLastName={setLastName}
+          //   submitRegisterForm={submitRegisterForm}
+          //   error={error}
+          //   setLogReg={setLogReg}
+          //   clearForm={clearForm}
+          //   />
+=======
             <ConfirmationChild 
             email={email}
             setLogChild={setLogChild}/>
@@ -205,11 +233,10 @@ const Login = () => {
             clearForm={clearForm}
             />) : <div></div>
 
+>>>>>>> master
         }
       </div>
     </div>
   );
-} 
-;
-
+};
 export default Login;

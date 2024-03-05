@@ -1,0 +1,95 @@
+@use "../../App.scss";
+@use "../../sass/variables";
+@import "functions";
+
+.container {
+    max-width: rem(1200px);
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    margin: 0 rem(-15px);
+    margin-top: rem(40px);
+
+    .col {
+        flex: 1;
+        margin: 0 rem(15px)
+    }
+}
+
+.posts,
+.status,
+.friends,
+.shares {
+    padding: rem(30px);
+    border-radius: 4px;
+    background-color: white;
+}
+
+.user,
+.user_detials,
+.friends__details,
+.status {
+    img {
+        width: rem(60px);
+        height: rem(60px);
+        display: block;
+    }
+}
+
+.username_time {
+    margin-left: rem(16px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    p {
+        font-size: rem(14px);
+        opacity: 1;
+        margin-left: 0px;
+    }
+
+    p:last-child {
+        opacity: 0.5;
+    }
+}
+
+.paragraph {
+    font-size: rem(16px);
+    line-height: 1.63;
+    color: #000000;
+    margin-top: rem(23px);
+}
+
+.social_media {
+    display: flex;
+    justify-content: space-between;
+
+    .social_media__buttons {
+        display: flex;
+    }
+
+    .like,
+    .share {
+        display: flex;
+
+        img {
+            height: rem(19px);
+        }
+
+        p {
+            margin-left: rem(16px);
+            font-size: rem(14px);
+        }
+    }
+
+    .share {
+        margin-left: rem(40px);
+    }
+
+    &__likes {
+        opacity: 0.5;
+    }
+
+}
