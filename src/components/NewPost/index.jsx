@@ -2,7 +2,9 @@ import "./styles.scss";
 import sendButton from "../../assets/svgs/send_button.svg"
 
 const CreateNewPost = () => {
-  return (
+  
+  
+    return (
     <>
       <div className="create-post-container">
         <div className="header-post-container">

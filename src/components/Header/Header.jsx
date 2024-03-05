@@ -1,15 +1,30 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./styles.scss";
 import motionLogo from "../../assets/images/logo.png";
 import postsLogo from "../../assets/images/posts_logo.png";
 import friendsLogo from "../../assets/svgs/icon-friends.svg";
 import notificationBellLogo from "../../assets/svgs/notification_bell.svg";
 import menuLogo from "../../assets/svgs/menu.svg";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setAvatar, userLogout } from "../../store/UserSlice/index";
+import { useEffect, useState } from "react";
+import defaultAvatar from "../../assets/svgs/avatar.svg";
+import profileLogo from "../../assets/svgs/profile.svg";
+import logoutLogo from "../../assets/svgs/logout.svg";
 
 const Header = () => {
-  const user = useSelector((state) => state.user);
+  useEffect(() => {
+    if (!user.avatar) {
+      dispatch(setAvatar(defaultAvatar));
+    } else {
+      dispatch(setAvatar(user.avatar));
+    }
+  });
+
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const avatar = useSelector((state) => state.user.avatar);
+  const [dropdown, setDropdown] = useState(false);
 
   return (
     <>
@@ -31,12 +46,41 @@ const Header = () => {
         </div>
         <div className="user-profile">
           <img src={notificationBellLogo} alt="Notification Bell Logo" />
-          {user.loggedIn ? (
-            <img src={user.userData.avatarUrl} alt="User Avatar" />
-          ) : null}
-          <img src={menuLogo} alt="Menu Logo" />
+          <img src={avatar} alt="User Avatar" />
+          <div
+            className="click-area-dropdown"
+            onClick={() => {
+              setDropdown((current) => !current);
+            }}
+          >
+            <img src={menuLogo} alt="Menu Logo" />
+          </div>
         </div>
       </header>
+      {dropdown && (
+        <div className="header-dropdown">
+          <Link to={"/profile"}>
+            <div
+              className="header-dropdown-button"
+              onClick={() => {
+                setDropdown((current) => !current);
+              }}
+            >
+              <img src={profileLogo} alt="Profile Logo" />
+              Profile
+            </div>
+          </Link>
+          <div
+            className="header-dropdown-button"
+            onClick={() => {
+              dispatch(userLogout());
+            }}
+          >
+            <img src={logoutLogo} alt="Logout Logo" />
+            Logout
+          </div>
+        </div>
+      )}
     </>
   );
 };
