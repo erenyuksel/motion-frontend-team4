@@ -45,6 +45,7 @@ const Header = () => {
           </div>
         </div>
         <div className="user-profile">
+
           <img src={notificationBellLogo} alt="Notification Bell Logo" />
           <img src={avatar} alt="User Avatar" />
           <div
@@ -55,6 +56,7 @@ const Header = () => {
           >
             <img src={menuLogo} alt="Menu Logo" />
           </div>
+
         </div>
       </header>
       {dropdown && (
