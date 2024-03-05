@@ -1,0 +1,35 @@
+@import "functions";
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+
+$color-primary: #44384b;
+$linear-gradient: linear-gradient(102deg, #c468ff, #6e91f6);
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    height: 100%;
+    background-color: #f8f8f9;
+    padding-bottom: rem(30px);
+}
+
+p {
+    line-height: rem(26px);
+    font-size: rem(16px);
+}
