@@ -1,50 +1,10 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
 import "./styles.scss";
-import axios from "axios";
 
-const Verification = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [password_repeat, setPasswordrepeat] = useState("");
-  const [fname, setFirstName] = useState("");
-  const [lname, setLastName] = useState("");
-  const [code, setCode] = useState("");
-  const [error, setError] = useState("");
-  //const dispatch = useDispatch();
-  const axiosApi = axios.create({
-    baseURL: "https://motion.propulsion-home.ch/backend/api",
-  });
-  const handleCompleteClick = async () => {
-    event.preventDefault();
-    setError(null);
-    try {
-      const res = await axiosApi.patch("/auth/registration/validation/", {
-        email: email,
-        username: username,
-        code: code,
-        password: password,
-        password_repeat: password_repeat,
-        first_name: fname,
-        last_name: lname,
-      });
-      console.log(res);
-      //   if (res.data.access) {
-      //     localStorage.setItem("token", JSON.stringify(res.data.access));
-      //     dispatch(login_user(res.data.access));
-      //     const from = location.state?.from || "/";
-      //     navigate(from);
-      //   }
-    } catch (error) {
-      console.log("the error is caught:", error);
-      setError(error);
-    }
-  };
+
+const Verification = (props) => {
 
   return (
     <div className="form-container">
-      <div className="left-container">Motion</div>
       <div className="right-container">
         <div className="form-header">
           <label>
@@ -60,8 +20,8 @@ const Verification = () => {
                 className="form-control"
                 id="setcode"
                 placeholder="Validation Code"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
+                value={props.code}
+                onChange={(e) => props.setCode(e.target.value)}
               />
             </div>
             <div className="form-group-one">
@@ -71,8 +31,8 @@ const Verification = () => {
                   className="form-control1"
                   id="email"
                   placeholder="Email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={props.email}
+                  onChange={(e) => props.setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group-username">
@@ -81,8 +41,8 @@ const Verification = () => {
                   className="form-control2"
                   id="userName"
                   placeholder="User Name"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={props.userName}
+                  onChange={(e) => props.setUserName(e.target.value)}
                 />
               </div>
             </div>
@@ -93,8 +53,8 @@ const Verification = () => {
                   className="form-control3"
                   id="password"
                   placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={props.password}
+                  onChange={(e) => props.setPassword(e.target.value)}
                 />
               </div>
               <div className="form-group-passwordconfirm">
@@ -103,8 +63,8 @@ const Verification = () => {
                   className="form-control4"
                   id="confirmPassword"
                   placeholder="Confirm Password"
-                  value={password_repeat}
-                  onChange={(e) => setPasswordrepeat(e.target.value)}
+                  value={props.repeatPassword}
+                  onChange={(e) => props.setRepeatPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -115,8 +75,8 @@ const Verification = () => {
                   className="form-control5"
                   id="firstName"
                   placeholder="First Name"
-                  value={fname}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  value={props.firstName}
+                  onChange={(e) => props.setFirstName(e.target.value)}
                 />
               </div>
               <div className="form-group-lname">
@@ -125,8 +85,8 @@ const Verification = () => {
                   className="form-control6"
                   id="lastName"
                   placeholder="Last Name"
-                  value={lname}
-                  onChange={(e) => setLastName(e.target.value)}
+                  value={props.lastName}
+                  onChange={(e) => props.setLastName(e.target.value)}
                 />
               </div>
             </div>
@@ -136,7 +96,7 @@ const Verification = () => {
           <button
             type="submit"
             className="completeButton"
-            onClick={handleCompleteClick}
+            onClick={props.submitRegisterForm}
           >
             COMPLETE
           </button>

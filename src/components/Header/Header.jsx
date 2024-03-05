@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./styles.scss";
 import motionLogo from "../../assets/images/logo.png";
 import postsLogo from "../../assets/images/posts_logo.png";
@@ -30,7 +30,7 @@ const Header = () => {
           </div>
         </div>
         <div className="user-profile">
-          <img src={notificationBellLogo} alt="Notification Bell Logo" />
+          <Link to={"/profile"}><img src={notificationBellLogo} alt="Notification Bell Logo" /></Link>
           {user.loggedIn ? (
             <img src={user.userData.avatarUrl} alt="User Avatar" />
           ) : null}
