@@ -1,4 +1,71 @@
-.test {
-    font-size: 50px;
-    color: green;
+@use "../../App.scss";
+@use "../../sass/variables";
+
+.login_main_container {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  height: 100vh;
+
+  .login_left_container {
+    background-image: linear-gradient(102deg, #c568ff78, #6e90f683),
+      url(../../assets/images/background_image.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: grid;
+    grid-template-rows: 50% 10% 10% 5% 15% 10%;
+    justify-items: center;
+
+    .login_right_container {
+      display: grid;
+      justify-items: center;
+    }
+
+    .login_logo {
+      justify-self: center;
+      align-self: end;
+    }
+
+    .login_motion {
+      color: white;
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .login_about {
+      justify-items: center;
+      align-items: center;
+      text-align: center;
+      text-wrap: wrap;
+      width: 250px;
+      color: white;
+    }
+    .app_store_buttons {
+      display: flex;
+      .store_button {
+        justify-self: center;
+        align-self: center;
+        border: 1px solid white;
+        border-radius: 20px;
+        margin: 5px;
+        padding: 5px;
+      }
+    }
+
+    .links {
+      display: flex;
+
+      .social_links img {
+        width: 40px;
+        height: 40px;
+        margin: 4px;
+      }
+    }
+  }
+}
+
+.login_right_container {
+  display: grid;
+  grid-template-rows: 50% 10% 10% 5% 15% 10%;
+  justify-items: center;
+  height: 100%;
 }
