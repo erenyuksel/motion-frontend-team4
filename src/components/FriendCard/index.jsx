@@ -1,65 +1,84 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./styles.scss";
-import axios from "axios";
-
-export const FriendCard = () => {
+import AxiosUser from "../../axios/UserAxios";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+export const FriendCard = ({ friend }) => {
   const [isToggled, setToggled] = useState(false);
   const [isFriend, setFriend] = useState(false);
-  //const [friends, setFriends] = useState([]);
+  // const friends = useSelector((state) => state.user.friendList);
+  // console.log("the friends list", friends);
+  const access = useSelector((state) => state.user.token);
+  const handleToggle = (id) => {
+    async function fetchData(id) {
+      const data = { user_id: Number(`${id}`) };
+      const res = await AxiosUser.post(
+        `/social/followers/toggle-follow/${id}/`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res.data);
+    }
 
-  // useEffect(() => {
-  //   const res = axiosApi.get("/users/?limit=6&offset=1");
-  //   console.log(res);
-  //   setFriends(res.data.results);
-  // }, [friends]);
-  // const axiosApi = axios.create({
-  //   baseURL: "https://motion.propulsion-home.ch/backend/api",
-  // });
-  const handleToggle = () => {
-    setToggled(!isToggled);
+    fetchData(id);
   };
+
   const handleToggleFriend = () => {
     setFriend(!isFriend);
   };
 
   return (
-    <div className="FriendlistCard">
-      <div className="profileImg">
-        <img src="/src/assets/images/users/alber.png" alt="Alber"></img>
+    <>
+      <div className="FriendlistCard" key={friend.id}>
+        <Link to={`/friend-profile/${friend.id}`}>
+          <div className="profileImg">
+            <img src={friend.avatar} alt={friend.first_name} />
+          </div>
+        </Link>
+        <div className="profileDescription">
+          <h3>
+            {friend.first_name} {friend.last_name}
+          </h3>
+          <h4>{friend.location}</h4>
+        </div>
+        <div className="profileFollowStatus">
+          <button
+            onClick={() => {
+              handleToggle(friend.id);
+            }}
+            className={`toggle-button-fol ${isToggled ? "on" : "off"}`}
+          >
+            {isToggled ? "FOLLOWING" : "FOLLOW"}
+          </button>
+          <button
+            onClick={() => {
+              handleToggleFriend;
+            }}
+            key={friend.id}
+            className={`toggle-button-frnd ${isFriend ? "on" : "off"}`}
+          >
+            {isFriend ? "FRIEND" : "ADD FRIEND"}
+          </button>
+        </div>
+        <div className="profileAbout">{friend.about_me}</div>
+
+        <div className="profileInterest">
+          {friend.things_user_likes.map((item, i) => {
+            return (
+              <p key={i}>
+                <small>{item}</small>
+              </p>
+            );
+          })}
+        </div>
       </div>
-      <div className="profileDescription">
-        <h3>Albert Lawrence</h3>
-        <h4>Zurich,Switzerland</h4>
-      </div>
-      <div className="profileFollowStatus">
-        <button
-          onClick={handleToggle}
-          className={`toggle-button-fol ${isToggled ? "on" : "off"}`}
-        >
-          {isToggled ? "FOLLOWING" : "FOLLOW"}
-        </button>
-        <button
-          onClick={handleToggleFriend}
-          className={`toggle-button-frnd ${isFriend ? "on" : "off"}`}
-        >
-          {isFriend ? "FRIEND" : "ADD FRIEND"}
-        </button>
-      </div>
-      <div className="profileAbout">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-        vehicula ante. Ut et pulvinar dolor. Donec non varius nisi.
-      </div>
-      <div className="profileInterest">
-        <p>
-          <small>Cooking</small>
-        </p>
-        <p>
-          <small>Cooking</small>
-        </p>
-        <p>
-          <small>Swimming</small>
-        </p>
-      </div>
-    </div>
+    </>
   );
 };
+
+export default FriendCard;
