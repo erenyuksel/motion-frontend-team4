@@ -61,7 +61,7 @@ const Header = () => {
       </header>
       {dropdown && (
         <div className="header-dropdown">
-          <Link to={"/profile"}>
+          <Link to={`/profile`}>
             <div
               className="header-dropdown-button"
               onClick={() => {

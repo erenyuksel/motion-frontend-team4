@@ -14,7 +14,4 @@ export const getMyProfileData = async (token) => {
 }
 
 
-
-
-
 export default AxiosUser
