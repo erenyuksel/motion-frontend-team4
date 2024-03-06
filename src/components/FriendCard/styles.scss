@@ -25,6 +25,15 @@
     align-items: center;
   }
 }
+
+.profileImg > img {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+
+  object-fit: cover;
+}
 .profileDescription {
   padding-left: 0px;
 }
