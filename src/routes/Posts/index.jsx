@@ -1,6 +1,6 @@
-import "./styles.scss";
-import "./_postslayout.scss";
-import "./_postsbase.scss";
+// import "./styles.scss";
+// import "./_postslayout.scss";
+// import "./_postsbase.scss";
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

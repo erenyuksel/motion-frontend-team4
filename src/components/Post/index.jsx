@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import moreIcon from "../../assets/svgs/menu.svg";
 import likeIcon from "../../assets/svgs/heart.svg";
 import shareIcon from "../../assets/svgs/share.svg";
 import "./styles.scss";
+
 const PostCard = (props) => {
   const [showMoreImages, setShowMoreImages] = useState(false);
 
