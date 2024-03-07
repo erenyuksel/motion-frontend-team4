@@ -36,6 +36,11 @@
 }
 .profileDescription {
   padding-left: 0px;
+  font-size: 20px;
+  font-weight: 5;
+  line-height: 26px;
+  letter-spacing: 0px;
+  text-align: center;
 }
 
 .profileFollowStatus {
@@ -58,8 +63,8 @@
   background: white;
 }
 
-.toggle-button-frnd.on {
-  // background: white;
+.toggle-button-frnd.off {
+  background: white;
 
   background-repeat: no-repeat;
   background-image: url("/src/assets/images/check.png");

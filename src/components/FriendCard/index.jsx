@@ -5,9 +5,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 export const FriendCard = ({ friend }) => {
   const [isToggled, setToggled] = useState(false);
-  const [isFriend, setFriend] = useState(false);
-  // const friends = useSelector((state) => state.user.friendList);
-  // console.log("the friends list", friends);
+  const [aFriend, setFriend] = useState(false);
   const access = useSelector((state) => state.user.token);
   const handleToggle = (id) => {
     async function fetchData(id) {
@@ -22,15 +20,39 @@ export const FriendCard = ({ friend }) => {
           },
         }
       );
-      console.log(res.data);
+      console.log(res.data.logged_in_user_is_following);
+      setToggled(res.data.logged_in_user_is_following);
     }
-
     fetchData(id);
   };
-
-  const handleToggleFriend = () => {
-    setFriend(!isFriend);
+  const handleRequest = (id) => {
+    async function sendRequest(id) {
+      const res1 = await AxiosUser.post(
+        `/social/friends/request/${id}/`,
+        { user_id: `${id}` },
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res1.data);
+    }
+    sendRequest(id);
   };
+
+  async function isFriend(fid) {
+    const res = await AxiosUser.get("/social/friends/?limit=6&offset=1", {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    });
+    console.log(res.data);
+    if (res.data.results == []) setFriend(aFriend);
+    else if (res.data.results.find((id) => id === fid)) setFriend(!aFriend);
+    else setFriend(aFriend);
+  }
 
   return (
     <>
@@ -55,15 +77,20 @@ export const FriendCard = ({ friend }) => {
           >
             {isToggled ? "FOLLOWING" : "FOLLOW"}
           </button>
-          <button
-            onClick={() => {
-              handleToggleFriend;
-            }}
-            key={friend.id}
-            className={`toggle-button-frnd ${isFriend ? "on" : "off"}`}
-          >
-            {isFriend ? "FRIEND" : "ADD FRIEND"}
-          </button>
+          {aFriend ? (
+            <button onClick={() => {}} key={friend.id}>
+              FRIEND
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                handleRequest(friend.id);
+              }}
+              key={friend.id}
+            >
+              ADD FRIEND
+            </button>
+          )}
         </div>
         <div className="profileAbout">{friend.about_me}</div>
 
