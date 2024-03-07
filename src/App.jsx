@@ -30,7 +30,6 @@ function App() {
     }
     token ? verify() : dispatch(userLogout())
   }, [])
-  
 
   if (!isLoading) {
     return (
