@@ -11,24 +11,31 @@ const PostCard = (props) => {
   };
   return (
     <div className="post" key={props.post.id}>
-      <div className="post-details">
-        <div className="user-details">
-          <img src={props.post.user.photo} alt="User" />
-          <p>{props.post.user.name}</p>
-          <p>{props.post.timestamp}</p>
+      <div className="post-header">
+        <div className="user-photo">
+          <img src={props.post.user.avatar} alt="User" />
+
+          <div className="user-name">
+            <p>
+              {props.post.user.first_name} {props.post.user.last_name}
+            </p>
+            <p className="time">{props.post.created}</p>
+          </div>
         </div>
+
         <div className="more">
           {/* More icon */}
           <img src={moreIcon} alt="More" />
         </div>
       </div>
+
       <div className="paragraph">
-        <p>{props.post.text}</p>
+        <p>{props.post.content}</p>
       </div>
       <div className="pictures">
         {props.post.images &&
           props.post.images
-            .slice(0, 4)
+            .slice(0, 3)
             .map((image, index) => (
               <img key={index} src={image.image} alt={image.alt} />
             ))}
@@ -36,7 +43,18 @@ const PostCard = (props) => {
           props.post.images.length > 4 &&
           !showMoreImages && (
             <div className="stacked-images" onClick={handleShowMoreImages}>
-              <span>+{props.post.images.length - 4} more</span>
+              <span
+                className="stacked-images-background"
+                style={{
+                  backgroundImage: `url(${props.post.images[4].image})`,
+                }}
+              >
+                +{props.post.images.length - 3} more
+                {/* <img
+                  src={props.post.images[3].image}
+                  alt={props.post.images[3].image}
+                /> */}
+              </span>
             </div>
           )}
         {showMoreImages &&
@@ -46,20 +64,22 @@ const PostCard = (props) => {
               <img key={index} src={image.image} alt={image.alt} />
             ))}
       </div>
-      <div className="social-media">
-        <div className="like">
-          {/* Like button */}
-          <img src={likeIcon} alt="Like" />
-          <p>Like</p>
+      <div className="footer">
+        <div className="like-share">
+          <div className="like-button">
+            {/* Like button */}
+            <img src={likeIcon} alt="Like" />
+            <p className="like-button-text">Like</p>
+          </div>
+          <div className="share">
+            <img src={shareIcon} alt="Share" />
+            <p className="share-button-text">Share</p>
+          </div>
         </div>
-        <div className="share">
-          {/* Share button */}
-          <img src={shareIcon} alt="Share" />
-          <p>Share</p>
-        </div>
+
         <div className="social-media-likes">
           {/* Likes count */}
-          <p>{props.post.likes} Likes</p>
+          <p>{props.post.amount_of_likes} Likes</p>
         </div>
       </div>
     </div>

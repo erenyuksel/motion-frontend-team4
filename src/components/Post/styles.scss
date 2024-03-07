@@ -1,34 +1,77 @@
 .post {
   border: 1px solid #ccc;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+  max-width: 300px;
+  font-size: 15px;
 
-  .user-details {
+
+  .post-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    min-width: 100px;
+  }
+
+  .user-photo {
+    display: flex;
+    flex-direction: row;
+
+
+
+
     img {
-      width: 50px;
-      height: 50px;
+      height: 44px;
       border-radius: 50%;
       margin-right: 10px;
+      aspect-ratio: 1/1;
+
+    }
+
+    .more {
+
+      height: 44px;
+      background-color: lightblue;
+
+
+
+
+    }
+
+  }
+
+  .paragraph {
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 15px;
+    justify-content: flex-start;
+
+    p {
+      font-size: 12px;
+      margin-left: 18px;
+
     }
   }
 
-  .more {
-    img {
-      width: 20px;
-      height: 20px;
-    }
-  }
 
   .pictures {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+
 
     img {
       width: 100px;
       height: 100px;
       object-fit: cover;
-      margin-right: 10px;
-      margin-bottom: 10px;
+      border-radius: 3px;
+
     }
 
     .stacked-images {
@@ -40,31 +83,90 @@
       align-items: center;
       cursor: pointer;
 
+
+
       span {
-        font-size: 16px;
-        font-weight: bold;
+        width: 100px;
+        height: 100px;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 3px;
+
       }
     }
   }
 
-  .social-media {
+  .time {
+    font-size: 5px;
+  }
 
-    .like,
-    .share {
-      img {
-        width: 20px;
-        height: 20px;
-      }
+  .footer {
+    display: flex;
+    flex-direction: row;
+    width: 270px;
+
+    justify-content: space-between;
+
+
+
+
+    .social-media-likes {
+      display: flex;
+      width: 65px;
+
+
 
       p {
-        margin-left: 5px;
+        font-size: 9px;
+        margin-left: 20px;
+        color: grey;
+      }
+
+    }
+
+    .like-share {
+
+      display: flex;
+      gap: 10px;
+
+      width: 150px;
+
+      p {
+        font-size: 12px;
+      }
+
+
+      .like-button {
+        display: flex;
+        width: 65px;
+        gap: 10px;
+
+        img {
+          height: 15px;
+          margin-top: 6px;
+          width: 15px;
+        }
+      }
+
+      .share {
+        display: flex;
+        width: 65px;
+        gap: 10px;
+
+        img {
+          height: 15px;
+          margin-top: 6px;
+          width: 15px;
+        }
       }
     }
 
-    .social-media-likes {
-      p {
-        font-weight: bold;
-      }
+    .share-button-text {
+      display: flex;
+
     }
   }
 }
