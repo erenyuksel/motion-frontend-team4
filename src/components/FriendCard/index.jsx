@@ -1,65 +1,111 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./styles.scss";
-import axios from "axios";
-
-export const FriendCard = () => {
+import AxiosUser from "../../axios/UserAxios";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+export const FriendCard = ({ friend }) => {
   const [isToggled, setToggled] = useState(false);
-  const [isFriend, setFriend] = useState(false);
-  //const [friends, setFriends] = useState([]);
+  const [aFriend, setFriend] = useState(false);
+  const access = useSelector((state) => state.user.token);
+  const handleToggle = (id) => {
+    async function fetchData(id) {
+      const data = { user_id: Number(`${id}`) };
+      const res = await AxiosUser.post(
+        `/social/followers/toggle-follow/${id}/`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res.data.logged_in_user_is_following);
+      setToggled(res.data.logged_in_user_is_following);
+    }
+    fetchData(id);
+  };
+  const handleRequest = (id) => {
+    async function sendRequest(id) {
+      const res1 = await AxiosUser.post(
+        `/social/friends/request/${id}/`,
+        { user_id: `${id}` },
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res1.data);
+    }
+    sendRequest(id);
+  };
 
-  // useEffect(() => {
-  //   const res = axiosApi.get("/users/?limit=6&offset=1");
-  //   console.log(res);
-  //   setFriends(res.data.results);
-  // }, [friends]);
-  // const axiosApi = axios.create({
-  //   baseURL: "https://motion.propulsion-home.ch/backend/api",
-  // });
-  const handleToggle = () => {
-    setToggled(!isToggled);
-  };
-  const handleToggleFriend = () => {
-    setFriend(!isFriend);
-  };
+  async function isFriend(fid) {
+    const res = await AxiosUser.get("/social/friends/?limit=6&offset=1", {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    });
+    console.log(res.data);
+    if (res.data.results == []) setFriend(aFriend);
+    else if (res.data.results.find((id) => id === fid)) setFriend(!aFriend);
+    else setFriend(aFriend);
+  }
 
   return (
-    <div className="FriendlistCard">
-      <div className="profileImg">
-        <img src="/src/assets/images/users/alber.png" alt="Alber"></img>
+    <>
+      <div className="FriendlistCard" key={friend.id}>
+        <Link to={`/friend-profile/${friend.id}`}>
+          <div className="profileImg">
+            <img src={friend.avatar} alt={friend.first_name} />
+          </div>
+        </Link>
+        <div className="profileDescription">
+          <h3>
+            {friend.first_name} {friend.last_name}
+          </h3>
+          <h4>{friend.location}</h4>
+        </div>
+        <div className="profileFollowStatus">
+          <button
+            onClick={() => {
+              handleToggle(friend.id);
+            }}
+            className={`toggle-button-fol ${isToggled ? "on" : "off"}`}
+          >
+            {isToggled ? "FOLLOWING" : "FOLLOW"}
+          </button>
+          {aFriend ? (
+            <button onClick={() => {}} key={friend.id}>
+              FRIEND
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                handleRequest(friend.id);
+              }}
+              key={friend.id}
+            >
+              ADD FRIEND
+            </button>
+          )}
+        </div>
+        <div className="profileAbout">{friend.about_me}</div>
+
+        <div className="profileInterest">
+          {friend.things_user_likes.map((item, i) => {
+            return (
+              <p key={i}>
+                <small>{item}</small>
+              </p>
+            );
+          })}
+        </div>
       </div>
-      <div className="profileDescription">
-        <h3>Albert Lawrence</h3>
-        <h4>Zurich,Switzerland</h4>
-      </div>
-      <div className="profileFollowStatus">
-        <button
-          onClick={handleToggle}
-          className={`toggle-button-fol ${isToggled ? "on" : "off"}`}
-        >
-          {isToggled ? "FOLLOWING" : "FOLLOW"}
-        </button>
-        <button
-          onClick={handleToggleFriend}
-          className={`toggle-button-frnd ${isFriend ? "on" : "off"}`}
-        >
-          {isFriend ? "FRIEND" : "ADD FRIEND"}
-        </button>
-      </div>
-      <div className="profileAbout">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-        vehicula ante. Ut et pulvinar dolor. Donec non varius nisi.
-      </div>
-      <div className="profileInterest">
-        <p>
-          <small>Cooking</small>
-        </p>
-        <p>
-          <small>Cooking</small>
-        </p>
-        <p>
-          <small>Swimming</small>
-        </p>
-      </div>
-    </div>
+    </>
   );
 };
+
+export default FriendCard;
