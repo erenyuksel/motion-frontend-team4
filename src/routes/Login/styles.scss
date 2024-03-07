@@ -23,13 +23,14 @@
     .login_logo {
       justify-self: center;
       align-self: end;
+      margin-bottom: 25px;
     }
 
     .login_motion {
-      color: white;
+      color: rgb(231, 230, 230);
       font-size: 30px;
       font-weight: 600;
-      margin-bottom: 15px;
+      margin-bottom: 25px;
     }
     .login_about {
       justify-items: center;
@@ -37,27 +38,31 @@
       text-align: center;
       text-wrap: wrap;
       width: 250px;
-      color: white;
+      color: rgb(231, 230, 230);
     }
     .app_store_buttons {
       display: flex;
       .store_button {
         justify-self: center;
         align-self: center;
-        border: 1px solid white;
+        border: 1px solid rgb(231, 230, 230);
         border-radius: 20px;
         margin: 5px;
-        padding: 5px;
+        padding: 7px;
+        cursor: pointer;
       }
     }
 
     .links {
       display: flex;
+      align-items: end;
 
       .social_links img {
         width: 40px;
         height: 40px;
-        margin: 4px;
+        margin-left: 10px;
+        margin-top: 2px;
+        cursor: pointer;
       }
     }
   }
@@ -68,4 +73,11 @@
   grid-template-rows: 50% 10% 10% 5% 15% 10%;
   justify-items: center;
   height: 100%;
+  background-color: white;
+}
+
+.rights_reserved {
+  color: rgb(231, 230, 230);
+  font-size: 14px;
+  margin-top: 15px;
 }

@@ -7,6 +7,7 @@ import NotFound from "./NotFound";
 import Layout from "./Layout";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Profile from "./Profile";
+import FriendProfile from "./FriendProfile";
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
             <Route path="/posts" element={<Posts />} />
             <Route path="/find-friends" element={<FindFriends />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/friend-profile/:id" element={<FriendProfile />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
