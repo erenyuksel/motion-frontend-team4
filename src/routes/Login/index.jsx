@@ -62,8 +62,8 @@ const Login = () => {
       navigate("/feed");
       dispatch(userLogin(token));
       window.localStorage.setItem("token", token);
-      const user = await getMyProfileData(token)
-      dispatch(userObject(user.data))
+      const user = await getMyProfileData(token);
+      dispatch(userObject(user.data));
     } catch (errors) {
       setError(errors.response.data.detail);
     } finally {
@@ -97,10 +97,8 @@ const Login = () => {
       navigate("/feed");
       dispatch(userLogin(token));
       window.localStorage.setItem("token", token);
-      const user = await getMyProfileData(token)
-      dispatch(userObject(user.data))
-
-      
+      const user = await getMyProfileData(token);
+      dispatch(userObject(user.data));
     } catch (errors) {
       setError(errors.response.data.detail);
     } finally {
@@ -145,7 +143,11 @@ const Login = () => {
         </div>
         <div className="links">
           <div className="social_links">
-            <img src="./src/assets/svgs/twitter_icon.svg" alt="Motion" />
+            <img
+              style={{ height: "44px", width: "44px", marginTop: "0" }}
+              src="./src/assets/svgs/twitter_icon.svg"
+              alt="Motion"
+            />
           </div>
           <div className="social_links">
             <img src="./src/assets/svgs/instagram_icon.svg" alt="Motion" />
@@ -159,35 +161,33 @@ const Login = () => {
         </div>
       </div>
       <div className="login_right_container">
-        {
-          isLoading ? (
-            <Spinner />
-          ) : logChild === "login" ? (
-            <LoginChild
-              email={email}
-              password={password}
-              setEmail={setEmail}
-              setPassword={setPassword}
-              submitLoginForm={submitLoginForm}
-              error={error}
-              setLogChild={setLogChild}
-              clearForm={clearForm}
-            />
-          ) : logChild === "register" ? (
-            <SignUp
-              email={email}
-              setEmail={setEmail}
-              submitEmailForm={submitEmailForm}
-              error={error}
-              setLogChild={setLogChild}
-              clearForm={clearForm}
-            />
-          ) : logChild === "confirm" ? (
-            <ConfirmationChild 
+        {isLoading ? (
+          <Spinner />
+        ) : logChild === "login" ? (
+          <LoginChild
             email={email}
-            setLogChild={setLogChild}/>
-          ) :  logChild === "veryfication" ? (
-            <Verification email={email}
+            password={password}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            submitLoginForm={submitLoginForm}
+            error={error}
+            setLogChild={setLogChild}
+            clearForm={clearForm}
+          />
+        ) : logChild === "register" ? (
+          <SignUp
+            email={email}
+            setEmail={setEmail}
+            submitEmailForm={submitEmailForm}
+            error={error}
+            setLogChild={setLogChild}
+            clearForm={clearForm}
+          />
+        ) : logChild === "confirm" ? (
+          <ConfirmationChild email={email} setLogChild={setLogChild} />
+        ) : logChild === "veryfication" ? (
+          <Verification
+            email={email}
             userName={userName}
             code={code}
             password={password}
@@ -205,8 +205,10 @@ const Login = () => {
             error={error}
             setLogReg={setLogChild}
             clearForm={clearForm}
-            />) : <div></div>
-        }
+          />
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );

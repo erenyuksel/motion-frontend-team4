@@ -1,0 +1,150 @@
+.page_container {
+  position: relative;
+  .picture {
+    position: absolute;
+    background-image: url(../../assets/images/prof_back.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+    width: 100%;
+    height: 30vh;
+  }
+  .profile_container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .profile_all_data {
+      display: grid;
+      grid-template-columns: 30% 70%;
+      background-color: rgb(255, 255, 255);
+      width: 80%;
+      height: 400px;
+      margin-top: 150px;
+      border-radius: 6px;
+      box-shadow: -2px 4px 32px -2px rgba(0, 0, 0, 0.75);
+
+      .profile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid rgb(215, 215, 215);
+
+        .profile_avatar img {
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+        }
+
+        .profile_button {
+          border: 1px solid rgb(212, 212, 212);
+          color: rgb(93, 93, 93);
+          border-radius: 30px;
+          background-color: white;
+          padding: 12px;
+          width: 170px;
+          margin-top: 10px;
+          text-align: center;
+          font-size: 12px;
+          cursor: pointer;
+        }
+
+        .profile_button_disabled {
+          border: 1px solid rgb(212, 212, 212);
+          color: rgb(0, 0, 0);
+          background-color: rgb(164, 93, 226);
+          border-radius: 30px;
+          padding: 12px;
+          width: 170px;
+          margin-top: 10px;
+          text-align: center;
+          font-size: 12px;
+          cursor: default;
+        }
+
+        .profile_button:hover {
+          border: 1px solid rgb(103, 103, 103);
+        }
+      }
+
+      .profile_data {
+        display: grid;
+        grid-template-rows: 65% 35%;
+
+        .column_name {
+          margin-bottom: 10px;
+          color: grey;
+        }
+
+        .rest_profile_data {
+          display: grid;
+          grid-template-columns: 50% 50%;
+          border-bottom: 1px solid rgb(215, 215, 215);
+
+          .about_email_phone {
+            margin: 30px;
+            display: grid;
+            grid-template-rows: 60% 40%;
+
+            .email_phone {
+              display: grid;
+              grid-template-columns: 60% 40%;
+              gap: 10px;
+            }
+          }
+
+          .things_i_like {
+            margin: 30px;
+
+            .liked_things {
+              display: flex;
+              gap: 10px;
+
+              .thing {
+                background-color: rgb(220, 220, 220);
+                border-radius: 25px;
+                padding: 10px;
+                cursor: pointer;
+              }
+
+              .thing:hover {
+                background-color: rgb(185, 185, 185);
+              }
+            }
+          }
+        }
+
+        .numbers {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+
+          .prof_button {
+            display: flex;
+            flex-direction: column;
+            width: 80px;
+            height: 80px;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+          }
+
+          .number {
+            text-align: center;
+            font-size: 22px;
+          }
+
+          .number_name {
+            text-align: center;
+            font-size: 14px;
+            color: gray;
+          }
+        }
+      }
+    }
+  }
+}
