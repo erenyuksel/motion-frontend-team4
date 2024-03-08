@@ -57,7 +57,6 @@ const Header = () => {
   // console.log("Sum of notifications", totalNotifications);
   // console.log(receivers);
 
-  
   const handleAcceptRequest = async () => {
     await AxiosUser.post(`/social/friends/request/${user.id}/`, {
       headers: { Authorization: `Bearer ${token}` },
