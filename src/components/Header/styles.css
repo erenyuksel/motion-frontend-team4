@@ -1,0 +1,83 @@
+.header-container {
+  width: 99vw;
+  height: 7vh;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.05), 0 0 1px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.375rem;
+}
+
+.header-icons-left {
+  width: 50vw;
+  height: 5vh;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+.header-icons-left img {
+  padding-right: 20px;
+}
+.header-icons-left a {
+  text-decoration: none;
+  color: black;
+}
+
+.user-profile {
+  display: flex;
+  padding-right: 10px;
+}
+
+.motion-logo {
+  display: flex;
+  align-items: center;
+}
+
+.posts-logo {
+  display: flex;
+  align-items: center;
+}
+
+.friends-logo {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile {
+  width: 50vw;
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.header-dropdown {
+  width: 200px;
+  height: 80px;
+  position: absolute;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.header-dropdown .header-dropdown-button {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  padding-left: 10px;
+  cursor: pointer;
+}
+.header-dropdown .header-dropdown-button:hover {
+  background-color: rgba(223, 216, 216, 0.986);
+}
+.header-dropdown img {
+  padding-right: 20px;
+}
+
+.click-area-dropdown {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  width: 20px;
+}/*# sourceMappingURL=styles.css.map */
