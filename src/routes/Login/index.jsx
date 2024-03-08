@@ -13,7 +13,7 @@ import Verification from "../../components/Login/Verification_child";
 
 const Login = () => {
   useEffect(() => {
-    isLogedin && navigate("/feed");
+    isLogedin && navigate("/posts");
   }, []);
 
   // Hooks to interact with the Redux store and React Router
@@ -59,7 +59,7 @@ const Login = () => {
         password: password,
       });
       const token = res.data.access;
-      navigate("/feed");
+      navigate("/posts");
       dispatch(userLogin(token));
       window.localStorage.setItem("token", token);
       const user = await getMyProfileData(token);
@@ -94,7 +94,7 @@ const Login = () => {
         password: password,
       });
       const token = res.data.access;
-      navigate("/feed");
+      navigate("/posts");
       dispatch(userLogin(token));
       window.localStorage.setItem("token", token);
       const user = await getMyProfileData(token);

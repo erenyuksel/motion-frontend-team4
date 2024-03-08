@@ -86,7 +86,10 @@
   gap: 10px;
   z-index: 13;
   background-color: white;
-
+   
+  a{
+    text-decoration: none;
+  }
   .header-dropdown-button {
     display: flex;
     align-items: center;
@@ -148,6 +151,7 @@
 
     .user-request-avatar {
       width: 30px;
+      border-radius: 50%;
     }
 
     .name-origin {
@@ -160,6 +164,10 @@
       .name {
         font-weight: bold;
       }
+    }
+
+    .requester-avatar {
+      border-radius: 50%;
     }
 
     .button-container {

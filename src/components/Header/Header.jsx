@@ -7,7 +7,7 @@ import notificationBellLogo from "../../assets/svgs/notification_bell.svg";
 import menuLogo from "../../assets/svgs/menu.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setAvatar, userLogout } from "../../store/UserSlice/index";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import defaultAvatar from "../../assets/svgs/avatar.svg";
 import profileLogo from "../../assets/svgs/profile.svg";
 import logoutLogo from "../../assets/svgs/logout.svg";
@@ -26,6 +26,39 @@ const Header = () => {
   const [receivers, setReceivers] = useState([]);
   const [requesters, setRequesters] = useState([]);
   const [totalNotifications, setTotalNotifications] = useState(0);
+  const [updateNotification, setUpdateNotification] = useState(false);
+
+  //Click outside to close the menu dropdown
+  let menuRef = useRef(null);
+
+  useEffect(() => {
+    let handler = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, []);
+
+  //Click outside to close the notification popup
+  let menuRefNot = useRef(null);
+
+  useEffect(() => {
+    let handler = (e) => {
+      if (menuRefNot.current && !menuRefNot.current.contains(e.target)) {
+        setNotificationDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, []);
 
   useEffect(() => {
     if (!user.avatar) {
@@ -36,38 +69,60 @@ const Header = () => {
 
     //get Notification von axois to receive the requests and the sended requests. Filter to get 2 lists
     const getNotification = async () => {
-      const notification = await AxiosUser.get("/social/friends/requests/", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      try {
+        const notification = await AxiosUser.get("/social/friends/requests/", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-      const receivedNot = notification.data.results.filter(
-        (item) => item.receiver.id === user.id
-      );
-      const requestedNot = notification.data.results.filter(
-        (item) => item.receiver.id !== user.id
-      );
+        const receivedNot = notification.data.results.filter(
+          (item) => item.receiver.id === user.id && item.status === "P"
+        );
+        const requestedNot = notification.data.results.filter(
+          (item) => item.receiver.id !== user.id && item.status !== "A"
+        );
 
-      setRequesters(requestedNot);
-      setReceivers(receivedNot);
-      setTotalNotifications(receivedNot.length + requestedNot.length);
+        setRequesters(requestedNot);
+        setReceivers(receivedNot);
+        setTotalNotifications(receivedNot.length + requestedNot.length);
+        console.log(requestedNot);
+      } catch (error) {
+        console.error("An error occurred:", error.message);
+      }
     };
     getNotification();
-  }, []);
+  }, [updateNotification]);
 
   // console.log("Sum of notifications", totalNotifications);
   // console.log(receivers);
 
-  
-  const handleAcceptRequest = async () => {
-    await AxiosUser.post(`/social/friends/request/${user.id}/`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  const handleAcceptRequest = async (requesterId) => {
+    console.log(requesterId);
+    try {
+      await AxiosUser.patch(
+        `/social/friends/requests/${requesterId}/`,
+        { status: "A" },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setUpdateNotification((current) => !current);
+    } catch (error) {
+      console.error("An error occurred:", error.message);
+    }
   };
 
-  const handleRejectRequest = async () => {
-    await AxiosUser.delete(`/social/friends/request/${user.id}/`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  const handleRejectRequest = async (requesterId) => {
+    try {
+      await AxiosUser.delete(`/social/friends/requests/${requesterId}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUpdateNotification((current) => !current);
+    } catch (error) {
+      console.error("An error occurred:", error.message);
+    }
   };
 
   return (
@@ -76,7 +131,8 @@ const Header = () => {
         <div className="header-icons-left">
           <div className="motion-logo">
             <img src={motionLogo} alt="Motion logo" />
-            <NavLink to="/feed">Motion</NavLink>
+            Motion
+            {/* <NavLink to="/feed">Motion</NavLink> */}
           </div>
           <div className="posts-logo">
             <img src={postsLogo} alt="Posts logo" />
@@ -122,7 +178,7 @@ const Header = () => {
 
       {/* Add dropdown to header icon */}
       {dropdown && (
-        <div className="header-dropdown">
+        <div className="header-dropdown" ref={menuRef}>
           <Link to={`/profile`}>
             <div
               className="header-dropdown-button"
@@ -149,7 +205,7 @@ const Header = () => {
 
       {/* Add dropdown to navigation icon */}
       {notificationDropdown && (
-        <div className="navigation-dropdown">
+        <div className="navigation-dropdown" ref={menuRefNot}>
           {/* mapping over the receivers results to get the recieved requests */}
           <h4>Recived requests</h4>
           {receivers.map((notification) => (
@@ -157,7 +213,7 @@ const Header = () => {
               <div className="show-user-request">
                 <img
                   className="user-request-avatar"
-                  src={defaultAvatar}
+                  src={notification.requester.avatar}
                   alt="user request avatar"
                 />
                 <div className="name-origin">
@@ -165,7 +221,11 @@ const Header = () => {
                     {notification.requester.first_name}{" "}
                     {notification.requester.last_name}
                   </p>
-                  <p>{notification.requester.location}</p>
+                  <div className="requester-avatar">
+                    {notification.requester.location
+                      ? notification.requester.location
+                      : defaultAvatar}
+                  </div>
                 </div>
                 <div className="button-container">
                   <div className="check-button-container">
@@ -174,7 +234,7 @@ const Header = () => {
                       src={checkButton}
                       alt="check button logo"
                       onClick={() => {
-                        handleAcceptRequest(notification.requester.id);
+                        handleAcceptRequest(notification.id);
                       }}
                     />
                   </div>
@@ -184,7 +244,7 @@ const Header = () => {
                       src={cancelButton}
                       alt="cancel button logo"
                       onClick={() => {
-                        handleRejectRequest(notification.requester.id);
+                        handleRejectRequest(notification.id);
                       }}
                     />
                   </div>
@@ -200,7 +260,11 @@ const Header = () => {
               <div className="show-user-request">
                 <img
                   className="user-request-avatar"
-                  src={defaultAvatar}
+                  src={
+                    notification.receiver.avatar
+                      ? notification.receiver.avatar
+                      : defaultAvatar
+                  }
                   alt="user request avatar"
                 />
                 <div className="name-origin">
