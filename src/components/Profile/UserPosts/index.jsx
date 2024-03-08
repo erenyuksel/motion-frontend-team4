@@ -26,20 +26,20 @@ const UserPosts = ({ user, token }) => {
 
   return (
     <div className="main_post_container">
-      <div className="post_col_1">
+      {/* <div className="post_col_1">
         <div>
           <input type="text" placeholder="Make a post" />
           <button>Post</button>
         </div>
-        {list.map(
+        {posts.map(
           (item, index) => index % 2 === 0 && <div className="post_con" key={index}>{item}</div>
         )}
       </div>
       <div className="post_col_2">
-        {list.map(
+        {posts.map(
           (item, index) => index % 2 !== 0 && <div className="post_con" key={index}>{item}</div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
