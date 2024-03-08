@@ -2,6 +2,8 @@ import { useState } from "react";
 import moreIcon from "../../assets/svgs/menu.svg";
 import likeIcon from "../../assets/svgs/heart.svg";
 import shareIcon from "../../assets/svgs/share.svg";
+import defaultAvatar from "../../assets/svgs/avatar.svg";
+import { Link } from "react-router-dom";
 import "./styles.scss";
 
 const PostCard = (props) => {
@@ -14,8 +16,14 @@ const PostCard = (props) => {
     <div className="post" key={props.post.id}>
       <div className="post-header">
         <div className="user-photo">
-          <img src={props.post.user.avatar} alt="User" />
-
+        <Link to={`/profile`}>
+          <img
+            src={
+              props.post.user.avatar ? props.post.user.avatar : defaultAvatar
+            }
+            alt="User"
+          />
+        </Link>
           <div className="user-name">
             <p>
               {props.post.user.first_name} {props.post.user.last_name}
