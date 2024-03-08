@@ -51,7 +51,7 @@ const PostCard = (props) => {
     <div className="post" key={props.post.id}>
       <div className="post-header">
         <div className="user-photo">
-          <Link to={`/profile`}>
+          <Link to={`/friend-profile/${props.post.user.id}`}>
             <img
               src={
                 props.post.user.avatar ? props.post.user.avatar : defaultAvatar
