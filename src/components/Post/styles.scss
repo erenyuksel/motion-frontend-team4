@@ -4,10 +4,9 @@
   padding: 25px;
   display: flex;
   flex-direction: column;
-  min-width: 100px;
-  max-width: 300px;
   font-size: 15px;
-
+  max-width: 500px;
+  width: 100%;
 
   .post-header {
     display: flex;
@@ -21,8 +20,6 @@
     display: flex;
     flex-direction: row;
 
-
-
     img {
       height: 35px;
       border-radius: 50%;
@@ -31,11 +28,7 @@
       aspect-ratio: 1/1;
       display: flex;
       margin-left: 15px;
-
-
     }
-
-
   }
 
   .paragraph {
@@ -45,12 +38,10 @@
     justify-content: flex-start;
 
     p {
-      font-size: 12px;
+      font-size: 16px;
       margin-left: 18px;
-
     }
   }
-
 
   .pictures {
     display: flex;
@@ -59,13 +50,11 @@
     gap: 10px;
     margin-bottom: 15px;
 
-
     img {
-      width: 100px;
-      height: 100px;
+      width: 200px;
+      height: 200px;
       object-fit: cover;
       border-radius: 3px;
-
     }
 
     .stacked-images {
@@ -77,8 +66,6 @@
       align-items: center;
       cursor: pointer;
 
-
-
       span {
         width: 100px;
         height: 100px;
@@ -88,53 +75,43 @@
         align-items: center;
         cursor: pointer;
         border-radius: 3px;
-
       }
     }
   }
 
   .time {
-    font-size: 5px;
+    font-size: 12px;
   }
 
   .footer {
     display: flex;
     flex-direction: row;
-    width: 270px;
+    width: 100%px;
 
     justify-content: space-between;
-
-
-
 
     .social-media-likes {
       display: flex;
       width: 65px;
       margin-top: 5px;
 
-
-
       p {
-        font-size: 9px;
+        font-size: 14px;
         margin-left: 20px;
         color: grey;
-
       }
-
     }
 
     .like-share {
-
       display: flex;
       gap: 10px;
 
       width: 150px;
 
       p {
-        font-size: 12px;
+        font-size: 14px;
         line-height: 24px;
       }
-
 
       .like-button {
         display: flex;
@@ -163,7 +140,6 @@
 
     .share-button-text {
       display: flex;
-
     }
   }
 }
