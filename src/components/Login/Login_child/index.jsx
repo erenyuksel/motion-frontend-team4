@@ -8,12 +8,12 @@ const LoginChild = (props) => {
       <div className="login_header">
         Do not have an account?
         <button onClick={() => {props.setLogChild('register')}} value="Sign Up" className="button signup">
-          Sign up
+          SIGN UP
         </button>
       </div>
       <div className="content">
         <div className="content-inner">
-          <h2>Sign In</h2>
+          <p className="login_title">Sign In</p>
           <form action="#" method="post">
             <div className="form-field">
               <img src={avatarIcon} alt="Avatar Icon" />

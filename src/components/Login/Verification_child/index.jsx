@@ -13,6 +13,7 @@ const Verification = (props) => {
           </label>
         </div>
         <div className="register-form">
+        {props.error && <div className="error">{props.error}</div>}
           <form>
             <div className="form-group-code">
               <input
