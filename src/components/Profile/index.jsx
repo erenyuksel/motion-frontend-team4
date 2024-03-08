@@ -1,33 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./styles.scss";
 import { useSelector } from "react-redux";
 import AxiosUser from "../../axios/UserAxios";
+import UserPosts from "./UserPosts";
+import UserLikes from "./UserLikes";
+import UserFriends from "./UserFriends";
+import UserFollowers from "./UserFollowers";
+import UserFollowing from "./UserFollowing";
 
 const ProfileComponent = ({ avatar, user }) => {
   const [bottom, setBottom] = useState("posts");
-  const [posts, setPosts] = useState([]);
+
+
   const [visitingUser, setVisitingUser] = useState(user);
   const token = useSelector((state) => state.user.token);
   const LogedInUser = useSelector((state) => state.user.user);
 
-  useEffect(() => {
-    const getUserPosts = async () => {
-      try {
-        const data = await AxiosUser.get(
-          `/social/posts/user/${user.id}/?limit=6&offset=1`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setPosts(data.data.results);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUserPosts();
-  }, []);
+
 
   const follow = async () => {
     const response = await AxiosUser.post(
@@ -56,6 +45,8 @@ const ProfileComponent = ({ avatar, user }) => {
     console.log(response.data);
     setVisitingUser(response.data.receiver);
   };
+
+
 
   return (
     <div className="page_container">
@@ -180,15 +171,15 @@ const ProfileComponent = ({ avatar, user }) => {
         </div>
         <div>
           {bottom === "posts" ? (
-            <div className="bottom_container">posts</div>
+            <div className="bottom_container"><UserPosts user={user} token={token}/></div>
           ) : bottom === "likes" ? (
-            <div className="bottom_container">likes</div>
+            <div className="bottom_container"><UserLikes user={user} token={token}/></div>
           ) : bottom === "friends" ? (
-            <div className="bottom_container">friends</div>
+            <div className="bottom_container"><UserFriends user={user} token={token}/></div>
           ) : bottom === "followers" ? (
-            <div className="bottom_container">followers</div>
+            <div className="bottom_container"><UserFollowers user={user} token={token}/></div>
           ) : bottom === "following" ? (
-            <div className="bottom_container">following</div>
+            <div className="bottom_container"><UserFollowing user={user} token={token}/></div>
           ) : (
             <div></div>
           )}
