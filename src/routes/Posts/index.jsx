@@ -1,17 +1,19 @@
 import "./styles.scss";
 // import "./_postslayout.scss";
 // import "./_postsbase.scss";
-
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AxiosUser from "../../axios/UserAxios";
 import PostCard from "../../components/Post";
 import Spinner from "../../components/Spinner";
+import NewPost from "../../components/NewPost";
+
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const token = useSelector((state) => state.user.token);
   const [isLoading, setIsLoading] = useState(false);
+  const [showNewPost, setShowNewPost] = useState(false);
 
   console.log("my posts", posts);
   useEffect(() => {
@@ -42,10 +44,20 @@ const Posts = () => {
         <div className="posts-container">
           {/* <div className="search">Search component</div> */}
           <div className="post_col_1">
-            <div>
-              <input type="text" placeholder="Make a post" />
-              <button>Post</button>
-            </div>
+            {/* Show New Post after clicking in input field and pass setShowNewPost to NewPost*/}
+            {showNewPost ? (
+              <NewPost setShowNewPost={setShowNewPost} />
+            ) : (
+              <div>
+                <input
+                  type="text"
+                  placeholder="Make a post"
+                  onClick={() => {
+                    setShowNewPost((current) => !current);
+                  }}
+                />
+              </div>
+            )}
             {posts.map(
               (post, index) =>
                 index % 2 === 0 && <PostCard post={post} key={post} />
