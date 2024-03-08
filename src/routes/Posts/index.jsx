@@ -12,12 +12,12 @@ import NewPost from "../../components/NewPost";
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const token = useSelector((state) => state.user.token);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [showNewPost, setShowNewPost] = useState(false);
 
   console.log("my posts", posts);
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const fetchPosts = async () => {
       try {
         const results = await AxiosUser.get("/social/posts/", {
@@ -36,7 +36,7 @@ const Posts = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [showNewPost]);
 
   if (!isLoading) {
     return (
@@ -49,7 +49,7 @@ const Posts = () => {
               <NewPost setShowNewPost={setShowNewPost} />
             ) : (
               <div>
-                <input
+                <input className="search"
                   type="text"
                   placeholder="Make a post"
                   onClick={() => {
