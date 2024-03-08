@@ -1,58 +1,42 @@
 import { useState } from "react";
 import "./styles.scss";
 import AxiosUser from "../../axios/UserAxios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-export const FriendCard = ({ friend }) => {
-  const [isToggled, setToggled] = useState(false);
+import check from "../../assets/images/check.png";
+export const FriendCard = ({
+  friend,
+  handleToggle,
+  handleRequest,
+  setCheck,
+}) => {
+  const [isFollow, setFollow] = useState(false);
+  //const [isToggled, setToggled] = useState(false);
   const [aFriend, setFriend] = useState(false);
   const access = useSelector((state) => state.user.token);
-  const handleToggle = (id) => {
-    async function fetchData(id) {
-      const data = { user_id: Number(`${id}`) };
-      const res = await AxiosUser.post(
-        `/social/followers/toggle-follow/${id}/`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${access}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(res.data.logged_in_user_is_following);
-      setToggled(res.data.logged_in_user_is_following);
-    }
-    fetchData(id);
-  };
-  const handleRequest = (id) => {
-    async function sendRequest(id) {
-      const res1 = await AxiosUser.post(
-        `/social/friends/request/${id}/`,
-        { user_id: `${id}` },
-        {
-          headers: {
-            Authorization: `Bearer ${access}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(res1.data);
-    }
-    sendRequest(id);
-  };
+  const userResponse = useSelector((state) => state.user.user);
 
-  async function isFriend(fid) {
-    const res = await AxiosUser.get("/social/friends/?limit=6&offset=1", {
+  async function isFollower(fid) {
+    const res = await AxiosUser.post(`/users/${fid}/`, {
       headers: {
         Authorization: `Bearer ${access}`,
       },
     });
     console.log(res.data);
-    if (res.data.results == []) setFriend(aFriend);
-    else if (res.data.results.find((id) => id === fid)) setFriend(!aFriend);
-    else setFriend(aFriend);
+    if (res.data.logged_in_user_is_following) setFollow(!isFollow);
+    else setFollow(isFollow);
   }
+  // async function findFriend(fid) {
+  //   const res = await AxiosUser.get("/users/?limit=100&offset=1", {
+  //     headers: {
+  //       Authorization: `Bearer ${access}`,
+  //     },
+  //   });
+  //   console.log(res.data);
+  //    (res.data.results.filter((results) => first_name);
+  //   else if (res.data.results.find((id) => id === fid)) setFriend(!aFriend);
+  //   else setFriend(aFriend);
+  // }
 
   return (
     <>
@@ -66,31 +50,57 @@ export const FriendCard = ({ friend }) => {
           <h3>
             {friend.first_name} {friend.last_name}
           </h3>
-          <h4>{friend.location}</h4>
+          {friend.location ? <p>{friend.location}</p> : <p>&nbsp;</p>}
         </div>
         <div className="profileFollowStatus">
-          <button
-            onClick={() => {
-              handleToggle(friend.id);
-            }}
-            className={`toggle-button-fol ${isToggled ? "on" : "off"}`}
-          >
-            {isToggled ? "FOLLOWING" : "FOLLOW"}
-          </button>
-          {aFriend ? (
-            <button onClick={() => {}} key={friend.id}>
-              FRIEND
+          {friend.logged_in_user_is_following ? (
+            <button
+              onClick={() => {
+                handleToggle(friend.id);
+                setCheck((current) => !current);
+              }}
+              className={`toggle-button-fol ${friend.logged_in_user_is_following ? "on" : "off"}`}
+            >
+              FOLLOWING
             </button>
           ) : (
             <button
               onClick={() => {
-                handleRequest(friend.id);
+                handleToggle(friend.id);
+                setCheck((current) => !current);
               }}
-              key={friend.id}
+              className={`toggle-button-frnd ${friend.logged_in_user_is_friends ? "on" : "off"}`}
             >
-              ADD FRIEND
+              FOLLOW
             </button>
           )}
+          {friend.logged_in_user_is_friends ? (
+            <button
+              key={friend.id}
+              className={`toggle-button-frnd ${friend.logged_in_user_is_friends ? "on" : "off"}`}
+            >
+              FRIEND
+            </button>
+          ) : !friend.logged_in_user_is_friends &&
+            friend.logged_in_user_is_rejected ? (
+            <button
+              onClick={() => {
+                handleRequest(friend.id);
+                setCheck((current) => !current);
+              }}
+              key={friend.id}
+              className={`toggle-button-frnd ${friend.logged_in_user_is_friends ? "on" : "off"}`}
+            >
+              REJECTED
+            </button>
+          ) : friend.logged_in_user_sent_fr ? (
+            <button
+              key={friend.id}
+              className={`toggle-button-frnd ${friend.logged_in_user_is_friends ? "on" : "off"}`}
+            >
+              REQUEST SENT
+            </button>
+          ) : null}
         </div>
         <div className="profileAbout">{friend.about_me}</div>
 

@@ -13,7 +13,7 @@ const ConfirmationChild = (props) => {
         onClick={() => {
           props.setLogChild("veryfication");
         }}
-        className="button"
+        className="button_continue"
       >
         CONTINUE
       </button>

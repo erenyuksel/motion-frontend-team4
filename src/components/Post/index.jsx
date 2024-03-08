@@ -1,13 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import moreIcon from "../../assets/svgs/menu.svg";
 import likeIcon from "../../assets/svgs/heart.svg";
 import shareIcon from "../../assets/svgs/share.svg";
 import defaultAvatar from "../../assets/svgs/avatar.svg";
 import { Link } from "react-router-dom";
 import "./styles.scss";
+import defaultAvatar from "../../assets/svgs/avatar.svg";
+import { Link } from "react-router-dom";
 
 const PostCard = (props) => {
+
+  useEffect(() => {
+    timeAgo()
+  })
+
   const [showMoreImages, setShowMoreImages] = useState(false);
+  const [time, setTime] =useState('')
+
+  function timeAgo() {
+    const date = new Date(props.post.created);
+    const now = new Date();
+    const secondsAgo = Math.round((now - date) / 1000);
+    const minutesAgo = Math.round(secondsAgo / 60);
+    const hoursAgo = Math.round(minutesAgo / 60);
+    const daysAgo = Math.round(hoursAgo / 24);
+    const weeksAgo = Math.round(daysAgo / 7);
+    const monthsAgo = Math.round(daysAgo / 30);
+    const yearsAgo = Math.round(daysAgo / 365);
+
+    console.log('printing', daysAgo)
+
+    if (secondsAgo < 60) {
+      setTime("just now");
+    } else if (minutesAgo < 60) {
+      setTime(`${minutesAgo} minute${minutesAgo > 1 ? 's' : ''} ago`) ;
+    } else if (hoursAgo < 24) {
+      setTime(`${hoursAgo} hour${hoursAgo > 1 ? 's' : ''} ago`) ;
+    } else if (daysAgo < 7) {
+      setTime(`${daysAgo} day${daysAgo > 1 ? 's' : ''} ago`) ;
+    } else if (weeksAgo < 5) {
+      setTime(`${weeksAgo} week${weeksAgo > 1 ? 's' : ''} ago`) ;
+    } else if (monthsAgo < 12) {
+      setTime(`${monthsAgo} month${monthsAgo > 1 ? 's' : ''} ago`) ;
+    } else {
+      setTime(`${yearsAgo} year${yearsAgo > 1 ? 's' : ''} ago`) ;
+    }
+}
 
   const handleShowMoreImages = () => {
     setShowMoreImages(true);
@@ -16,6 +54,7 @@ const PostCard = (props) => {
     <div className="post" key={props.post.id}>
       <div className="post-header">
         <div className="user-photo">
+<<<<<<< HEAD
         <Link to={`/profile`}>
           <img
             src={
@@ -24,11 +63,15 @@ const PostCard = (props) => {
             alt="User"
           />
         </Link>
+=======
+          <Link to={`/friend-profile/${props.post.user.id}`}><img src={props.post.user.avatar ? props.post.user.avatar : defaultAvatar} alt="User" /></Link>
+
+>>>>>>> 7d7244ce64bb736b2008c6341b55f5e161bd754d
           <div className="user-name">
             <p>
               {props.post.user.first_name} {props.post.user.last_name}
             </p>
-            <p className="time">{props.post.created}</p>
+            <p className="time">{time}</p>
           </div>
         </div>
 
