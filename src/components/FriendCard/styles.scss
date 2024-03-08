@@ -1,3 +1,5 @@
+@use "../../App.scss";
+@use "../../sass/variables";
 .FriendlistCard {
   display: flex;
   flex-direction: column;
@@ -6,12 +8,17 @@
   background: rgba(255, 255, 255, 1);
   padding-top: 10px;
   //border: 1px solid rgba(255, 255, 255, 1);
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 10px;
   box-shadow:
     rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
     rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+}
+.main-friend-conatiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .profileAbout {
   text-align: center;
@@ -42,8 +49,25 @@
     display: inline-block;
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 60%;
     object-fit: cover;
+  }
+}
+.profileImg1 {
+  width: 100px;
+  height: 100px;
+  img {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 60%;
+    object-fit: cover;
+    background-color: grey;
+    text-align: end;
+    font: 50px Roboto;
+    font-style: normal;
+    padding: 0px 30px 0px 1px;
+    color: white;
   }
 }
 .profileDescription {

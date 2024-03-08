@@ -9,7 +9,7 @@ const FindFriends = () => {
   const access = useSelector((state) => state.user.token);
   const friends = useSelector((state) => state.user.friendList);
   const [check, setCheck] = useState(false);
-  const [input, SetInput] = useState("");
+  const [input, setInput] = useState("");
   const dispatch = useDispatch();
   console.log(access);
   const handleToggle = (id) => {
@@ -47,6 +47,7 @@ const FindFriends = () => {
     }
     sendRequest(id);
   };
+
   useEffect(() => {
     async function fetchData() {
       const res = await AxiosUser.get("/users/?limit=6&offset=1", {
@@ -57,8 +58,24 @@ const FindFriends = () => {
       console.log(res);
       dispatch(setFriendList(res.data.results));
     }
-    fetchData();
-  }, [check]);
+    async function fetchFriends(value) {
+      const res = await AxiosUser.get("/users/?limit=100&offset=1", {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      });
+      console.log(res);
+      const findFriendsByFriendName = res.data.results.filter((response) =>
+        response.first_name.includes(value)
+      );
+      dispatch(setFriendList(findFriendsByFriendName.slice(0, 6)));
+    }
+    if (input == "") {
+      fetchData();
+    } else if (input != "") {
+      fetchFriends(input);
+    }
+  }, [check, input]);
 
   return (
     <div className="find-friends-container">
@@ -67,7 +84,7 @@ const FindFriends = () => {
         <input
           placeholder="Find friends....."
           value={input}
-          onChange={(e) => SetInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
         />
       </div>
       <div className="friends-container">
