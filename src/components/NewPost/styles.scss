@@ -5,37 +5,48 @@
   height: 400px;
   width: 400px;
   display: flex;
-  border: green 2px solid;
+  border: white;
+  box-shadow:
+  0 10px 20px 0 rgba(0, 0, 0, 0.05),
+  0 0 1px 0 rgba(0, 0, 0, 0.2);
   background-color: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+  .header-main-container{
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+  }
+
   .header-post-container {
     display: flex;
-    align-items: center;
-    height: 50px;
+    align-items: start;
+    height: 140px;
     margin-bottom: 20px;
-    border: red 2px solid;
 
     img {
       width: 30px;
       height: 30px;
       margin-right: 10px;
     }
-    input {
-      flex: 1;
-      border: 1px solid #ccc;
+    .input-post {
+      resize: none;
+      height: 140px;
+      width: 300px;
+      border: none;
       border-radius: 4px;
       padding: 10px;
       font-size: 14px;
     }
   }
   .main-content {
-    
+
     img {
       height: 100px;
       width: 100px;
+     
     }
   }
 
@@ -57,28 +68,30 @@
     cursor: pointer;
   }
 
-  .custom-file-input:hover span {
-    background-color: #2980b9;
-  }
-
   .footer-post-container {
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 70px;
     justify-content: flex-end;
-    border: green 2px solid;
-  
-  
-    .input-image{
-      border: green 2px solid;
+    padding-top: 15px;
+    border-top: rgb(198, 200, 198) 2px solid;
+
+    .input-image {
+      border: none;
       display: flex;
       width: 30px;
       height: 30px;
       margin-right: 275px;
-      
+
+      img {
+        width: 25px;
+      }
     }
 
     .send-button-circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 40px;
       width: 40px;
       background: linear-gradient(102deg, #c468ff, #6e91f6);
@@ -86,9 +99,4 @@
       cursor: pointer;
     }
   }
-
-
 }
-
-
-
