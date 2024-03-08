@@ -1,8 +1,0 @@
-@function em($px, $base: 16px) {
-    @return ($px / $base) * 1em;
-}
-
-@function rem($size) {
-    $remsize: $size / 16px;
-    @return #{$remsize}rem;
-}
